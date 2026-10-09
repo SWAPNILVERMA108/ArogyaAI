@@ -1,0 +1,19 @@
+# Web framework and REST API
+# Django 5.2 LTS is compatible with DRF 3.16; Django 6.1 is not yet supported
+# by that DRF release.
+Django>=5.2,<5.3
+djangorestframework>=3.16,<3.17
+djangorestframework-simplejwt>=5.5,<5.6
+django-cors-headers>=4.9,<5.0
+drf-spectacular>=0.28,<0.29
+
+# Environment and database configuration
+django-environ>=0.12,<0.13
+psycopg[binary]>=3.2,<4.0
+
+# Medical retrieval (local, CPU-compatible index and embeddings)
+langchain-text-splitters>=1.0,<2.0
+sentence-transformers>=5.0,<6.0
+faiss-cpu>=1.14.3,<2.0
+pypdf>=5.0,<7.0
+PyMuPDF>=1.25,<2.0
