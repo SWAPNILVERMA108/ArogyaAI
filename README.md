@@ -8,10 +8,10 @@ incrementally as a React/Vite frontend and Django REST API backend.
 
 ## Current status
 
-Chunks 1–11 establish the monorepo, Django REST configuration, JWT accounts,
+Chunks 1–13 establish the monorepo, Django REST configuration, JWT accounts,
 patient profile APIs, medicine/reminder APIs, chat history and Gemini replies,
-plus local document retrieval, report OCR, and OSM facility lookup. Voice and
-remaining healthcare features are implemented in later chunks.
+plus local document retrieval, report OCR, OSM facility lookup, and emergency
+assistance, and Hindi/English voice APIs.
 
 The chat reply endpoint requires `GEMINI_API_KEY` in `backend/.env`.
 Set `LLM_PROVIDER=gemini` and optionally `GEMINI_MODEL` there as well. The
@@ -44,6 +44,27 @@ real contact information. Location coordinates or city/postcode are sent to
 the configured map provider for this search. The public Nominatim service is
 strictly limited and must only be used for end-user-initiated lookups; review its
 [usage policy](https://operations.osmfoundation.org/policies/nominatim/).
+
+Chunk 12 adds emergency call information (`GET /api/emergency/info/`), private
+patient emergency contacts (`/api/emergency/contacts/`), and an explicit
+location-share message (`POST /api/emergency/location-share/`). The location
+endpoint only prepares an OpenStreetMap link and message for the user to
+review; it does not save coordinates, send SMS, or dispatch help. India ERSS
+112 is the default call number, configurable in `backend/.env`; use a local
+number if outside India. ArogyaAI is not an emergency response service.
+Nearby emergency facilities use the existing hospitals endpoint with
+`category=emergency`.
+
+Chunk 13 adds authenticated voice endpoints: `POST /api/voice/transcribe/`
+(multipart fields `audio`, `language` (`en` or `hi`), and
+`consent_to_cloud_processing=true`) and `POST /api/voice/speak/` (JSON fields
+`text` and `language`). The client can send the returned transcript to
+`POST /api/chat/message/`, then request speech for the chat reply. Voice audio
+is sent to Google Gemini for processing and is not stored by this backend.
+Cloud voice processing is disabled by default; set `VOICE_CLOUD_ENABLED=True`
+and configure `GEMINI_API_KEY` in `backend/.env` to enable it. Clips up to 10 MB
+are accepted. The browser frontend can capture microphone audio and play the
+returned WAV response.
 
 ## Repository layout
 

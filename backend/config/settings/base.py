@@ -31,6 +31,8 @@ INSTALLED_APPS = [
     "apps.chat",
     "apps.reports",
     "apps.hospitals",
+    "apps.emergency",
+    "apps.voice",
 ]
 
 MIDDLEWARE = [
@@ -106,6 +108,7 @@ REST_FRAMEWORK = {
         "auth": "10/minute",
         "chat": "30/hour",
         "maps": "30/hour",
+        "voice": "20/hour",
     },
     "EXCEPTION_HANDLER": "common.exceptions.handlers.api_exception_handler",
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
