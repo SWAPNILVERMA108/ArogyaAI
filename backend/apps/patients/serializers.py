@@ -4,7 +4,7 @@ from rest_framework import serializers
 from drf_spectacular.types import OpenApiTypes
 from drf_spectacular.utils import extend_schema_field
 
-from .models import PatientProfile
+from .models import PatientAccessGrant, PatientProfile
 
 
 class PatientProfileSerializer(serializers.ModelSerializer):
@@ -42,3 +42,17 @@ class PatientProfileSerializer(serializers.ModelSerializer):
         if value and value > date.today():
             raise serializers.ValidationError("Date of birth cannot be in the future.")
         return value
+
+
+class AccessGrantCreateSerializer(serializers.Serializer):
+    doctor_email = serializers.EmailField()
+
+
+class AccessGrantSerializer(serializers.ModelSerializer):
+    doctor_name = serializers.CharField(source="doctor.name", read_only=True)
+    doctor_email = serializers.EmailField(source="doctor.email", read_only=True)
+
+    class Meta:
+        model = PatientAccessGrant
+        fields = ("id", "doctor_name", "doctor_email", "created_at")
+        read_only_fields = fields

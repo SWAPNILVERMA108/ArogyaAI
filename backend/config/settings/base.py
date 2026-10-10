@@ -33,6 +33,7 @@ INSTALLED_APPS = [
     "apps.hospitals",
     "apps.emergency",
     "apps.voice",
+    "apps.health",
 ]
 
 MIDDLEWARE = [
@@ -109,6 +110,7 @@ REST_FRAMEWORK = {
         "chat": "30/hour",
         "maps": "30/hour",
         "voice": "20/hour",
+        "access": "20/hour",
     },
     "EXCEPTION_HANDLER": "common.exceptions.handlers.api_exception_handler",
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
@@ -130,4 +132,20 @@ SPECTACULAR_SETTINGS = {
     "DESCRIPTION": "API for the ArogyaAI rural healthcare information assistant.",
     "VERSION": "0.1.0",
     "SERVE_INCLUDE_SCHEMA": False,
+    "ENUM_NAME_OVERRIDES": {"UserRoleEnum": "apps.accounts.models.User.Role"},
+}
+
+LOG_LEVEL = os.environ.get("LOG_LEVEL", "INFO").upper()
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "formatters": {"json": {"()": "common.utils.logging.JsonFormatter"}},
+    "handlers": {"console": {"class": "logging.StreamHandler", "formatter": "json"}},
+    "root": {"handlers": ["console"], "level": LOG_LEVEL},
+    "loggers": {
+        # Request errors (5xx) are logged here by Django; keep them visible.
+        "django.request": {"handlers": ["console"], "level": "WARNING", "propagate": False},
+        "faiss": {"level": "WARNING"},
+        "apps.security": {"handlers": ["console"], "level": "INFO", "propagate": False},
+    },
 }

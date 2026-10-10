@@ -1,0 +1,88 @@
+{
+  "categories": [
+    {
+      "slug": "nutrition", "name": "Nutrition", "name_hi": "पोषण",
+      "tips": [
+        {"slug": "nutrition-colourful-plate", "title": "Eat a variety of foods", "title_hi": "तरह-तरह का भोजन खाएं",
+         "body": "Try to include vegetables, fruit, pulses, whole grains and some milk or curd in your meals across the week. Variety helps your body get different nutrients.",
+         "body_hi": "हफ़्ते भर के भोजन में सब्ज़ियाँ, फल, दालें, साबुत अनाज और थोड़ा दूध या दही शामिल करने की कोशिश करें। अलग-अलग भोजन से शरीर को अलग-अलग पोषक तत्व मिलते हैं।"},
+        {"slug": "nutrition-less-salt-sugar", "title": "Go easy on salt, sugar and fried food", "title_hi": "नमक, चीनी और तले भोजन कम लें",
+         "body": "Too much salt, sugar and deep-fried food over many years can raise the risk of long-term health problems. Choosing homemade, less processed food more often is a good habit.",
+         "body_hi": "लंबे समय तक बहुत अधिक नमक, चीनी और तला हुआ भोजन खाने से दीर्घकालिक स्वास्थ्य समस्याओं का खतरा बढ़ सकता है। घर का बना, कम प्रसंस्कृत भोजन अधिक खाना अच्छी आदत है।"},
+        {"slug": "nutrition-regular-meals", "title": "Keep regular meal times", "title_hi": "भोजन का समय नियमित रखें",
+         "body": "Eating at roughly the same times each day, and not skipping meals, helps many people keep their energy steady. If you have a medical condition or special diet, follow your clinician's advice.",
+         "body_hi": "रोज़ लगभग एक ही समय पर भोजन करना और भोजन न छोड़ना कई लोगों की ऊर्जा स्थिर रखने में मदद करता है। यदि आपको कोई बीमारी है या विशेष आहार लेना है, तो अपने चिकित्सक की सलाह मानें।"}
+      ]
+    },
+    {
+      "slug": "exercise", "name": "Exercise", "name_hi": "व्यायाम",
+      "tips": [
+        {"slug": "exercise-daily-walk", "title": "Walk a little every day", "title_hi": "रोज़ थोड़ा पैदल चलें",
+         "body": "Regular brisk walking is a simple way to stay active for most adults. Start slowly and build up gradually. If you feel chest pain, dizziness or severe breathlessness, stop and seek medical help.",
+         "body_hi": "तेज़ क़दमों से नियमित चलना अधिकतर वयस्कों के लिए सक्रिय रहने का आसान तरीका है। धीरे-धीरे शुरू करें और समय बढ़ाएं। सीने में दर्द, चक्कर या बहुत तेज़ सांस फूलने पर रुक जाएं और चिकित्सा सहायता लें।"},
+        {"slug": "exercise-break-sitting", "title": "Break up long sitting", "title_hi": "लंबे समय तक बैठे न रहें",
+         "body": "If you sit for long periods, stand up and stretch or walk for a few minutes every hour or so.",
+         "body_hi": "यदि आप लंबे समय तक बैठते हैं, तो लगभग हर घंटे उठकर कुछ मिनट टहलें या शरीर को खींचें (स्ट्रेच करें)।"},
+        {"slug": "exercise-check-before-start", "title": "Check with a doctor if unsure", "title_hi": "संदेह हो तो डॉक्टर से पूछें",
+         "body": "If you are older, pregnant, recovering from illness or have a health condition, ask a health professional what kind of activity is safe for you before starting a new routine.",
+         "body_hi": "यदि आप बुज़ुर्ग हैं, गर्भवती हैं, बीमारी से उबर रहे हैं या कोई स्वास्थ्य समस्या है, तो नई दिनचर्या शुरू करने से पहले किसी स्वास्थ्य विशेषज्ञ से पूछें कि आपके लिए कौन-सी गतिविधि सुरक्षित है।"}
+      ]
+    },
+    {
+      "slug": "sleep", "name": "Sleep", "name_hi": "नींद",
+      "tips": [
+        {"slug": "sleep-regular-schedule", "title": "Sleep and wake at similar times", "title_hi": "सोने-जागने का समय एक जैसा रखें",
+         "body": "A fairly regular sleep schedule helps many people sleep better. Most adults need around 7 or more hours of sleep a night.",
+         "body_hi": "सोने-जागने का समय लगभग एक जैसा रखने से कई लोगों की नींद बेहतर होती है। अधिकतर वयस्कों को रात में लगभग 7 या उससे अधिक घंटे की नींद चाहिए।"},
+        {"slug": "sleep-calm-evening", "title": "Wind down in the evening", "title_hi": "शाम को शांत रहें",
+         "body": "Try to avoid heavy meals, strong tea or coffee, and long phone use close to bedtime. A quiet, dark, cool room can help.",
+         "body_hi": "सोने के समय के पास भारी भोजन, तेज़ चाय-कॉफ़ी और फ़ोन का लंबा उपयोग टालने की कोशिश करें। शांत, अंधेरा और ठंडा कमरा मददगार हो सकता है।"},
+        {"slug": "sleep-when-to-seek-help", "title": "When poor sleep needs attention", "title_hi": "खराब नींद पर कब ध्यान दें",
+         "body": "If you often cannot sleep, snore loudly with pauses in breathing, or feel very tired during the day for weeks, talk to a health professional.",
+         "body_hi": "यदि आपको अक्सर नींद नहीं आती, तेज़ खर्राटे आते हैं और सांस रुकती है, या हफ़्तों तक दिन में बहुत थकान रहती है, तो किसी स्वास्थ्य विशेषज्ञ से बात करें।"}
+      ]
+    },
+    {
+      "slug": "hydration", "name": "Hydration", "name_hi": "पानी और हाइड्रेशन",
+      "tips": [
+        {"slug": "hydration-safe-water", "title": "Drink safe water", "title_hi": "सुरक्षित पानी पिएं",
+         "body": "Use clean, safe drinking water. If you are unsure about your water source, boiling or properly filtering water helps reduce the risk of stomach infections.",
+         "body_hi": "साफ़ और सुरक्षित पेयजल का उपयोग करें। यदि पानी के स्रोत को लेकर संदेह हो, तो पानी उबालने या ठीक से छानने से पेट के संक्रमण का खतरा कम होता है।"},
+        {"slug": "hydration-hot-weather", "title": "Drink more in hot weather", "title_hi": "गर्मी में अधिक पानी पिएं",
+         "body": "In hot weather or when you sweat a lot, drink water regularly through the day instead of waiting until you are very thirsty. Avoid heavy work in the hottest hours when you can.",
+         "body_hi": "गर्मी में या अधिक पसीना आने पर बहुत प्यास लगने का इंतज़ार किए बिना दिन भर नियमित पानी पिएं। संभव हो तो सबसे गर्म घंटों में भारी काम से बचें।"},
+        {"slug": "hydration-diarrhoea-warning", "title": "Do not ignore dehydration signs", "title_hi": "पानी की कमी के लक्षण अनदेखे न करें",
+         "body": "Very dry mouth, little or no urine, dizziness, or repeated vomiting or loose motions can be signs of dehydration. Seek medical care promptly, especially for children and older adults.",
+         "body_hi": "बहुत सूखा मुँह, पेशाब कम या बिल्कुल न आना, चक्कर, या बार-बार उल्टी या दस्त पानी की कमी के संकेत हो सकते हैं। विशेष रूप से बच्चों और बुज़ुर्गों में जल्द चिकित्सा सहायता लें।"}
+      ]
+    },
+    {
+      "slug": "preventive-care", "name": "Preventive Care", "name_hi": "बचाव और रोकथाम",
+      "tips": [
+        {"slug": "prevent-handwashing", "title": "Wash your hands with soap", "title_hi": "साबुन से हाथ धोएं",
+         "body": "Washing hands with soap and water before eating or preparing food and after using the toilet helps prevent many common infections.",
+         "body_hi": "खाने या खाना बनाने से पहले और शौच के बाद साबुन-पानी से हाथ धोने से कई आम संक्रमणों से बचाव होता है।"},
+        {"slug": "prevent-vaccination", "title": "Keep vaccinations up to date", "title_hi": "टीकाकरण समय पर करवाएं",
+         "body": "Vaccines protect children and adults from serious diseases. Ask your nearest health worker or health centre which vaccines are recommended for you and your family.",
+         "body_hi": "टीके बच्चों और वयस्कों को गंभीर बीमारियों से बचाते हैं। आपके और आपके परिवार के लिए कौन-से टीके सुझाए गए हैं, यह अपने नज़दीकी स्वास्थ्यकर्मी या स्वास्थ्य केंद्र से पूछें।"},
+        {"slug": "prevent-checkups", "title": "Get regular health check-ups", "title_hi": "नियमित स्वास्थ्य जांच करवाएं",
+         "body": "Periodic check-ups, such as blood pressure and blood sugar checks, can catch problems early. A health professional can tell you which checks suit your age and situation.",
+         "body_hi": "समय-समय पर जांच, जैसे रक्तचाप और रक्त शर्करा की जांच, समस्याओं को जल्दी पकड़ने में मदद करती है। आपकी उम्र और स्थिति के अनुसार कौन-सी जांच ठीक है, यह स्वास्थ्य विशेषज्ञ बता सकते हैं।"}
+      ]
+    },
+    {
+      "slug": "general-wellness", "name": "General Wellness", "name_hi": "सामान्य स्वास्थ्य",
+      "tips": [
+        {"slug": "wellness-avoid-tobacco", "title": "Avoid tobacco and limit alcohol", "title_hi": "तंबाकू से बचें और शराब सीमित रखें",
+         "body": "Not using tobacco in any form is one of the best things you can do for your health. If you want to quit, a health worker can point you to support services.",
+         "body_hi": "किसी भी रूप में तंबाकू का सेवन न करना आपके स्वास्थ्य के लिए सबसे अच्छे कदमों में से एक है। छोड़ना चाहें तो स्वास्थ्यकर्मी आपको सहायता सेवाओं के बारे में बता सकते हैं।"},
+        {"slug": "wellness-mental-health", "title": "Take care of your mind too", "title_hi": "मन का भी ध्यान रखें",
+         "body": "Talking with someone you trust, resting, and doing things you enjoy can help during stressful times. If sadness or worry lasts for weeks or affects daily life, please talk to a health professional.",
+         "body_hi": "तनाव के समय किसी भरोसेमंद व्यक्ति से बात करना, आराम करना और पसंद के काम करना मदद कर सकता है। यदि उदासी या चिंता हफ़्तों तक रहे या रोज़मर्रा के जीवन को प्रभावित करे, तो कृपया किसी स्वास्थ्य विशेषज्ञ से बात करें।"},
+        {"slug": "wellness-medicines-safely", "title": "Use medicines safely", "title_hi": "दवाइयाँ सुरक्षित तरीके से लें",
+         "body": "Take medicines only as prescribed or as the label directs, and do not share prescription medicines. Ask a doctor or pharmacist before combining medicines or stopping one you were prescribed.",
+         "body_hi": "दवाइयाँ केवल डॉक्टर के बताए अनुसार या लेबल पर लिखे निर्देश के अनुसार लें, और डॉक्टर द्वारा दी गई दवाइयाँ दूसरों को न दें। दवाइयाँ मिलाने या बताई गई दवा बंद करने से पहले डॉक्टर या फ़ार्मासिस्ट से पूछें।"}
+      ]
+    }
+  ]
+}

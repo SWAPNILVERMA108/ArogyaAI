@@ -66,6 +66,13 @@ and configure `GEMINI_API_KEY` in `backend/.env` to enable it. Clips up to 10 MB
 are accepted. The browser frontend can capture microphone audio and play the
 returned WAV response.
 
+Chunks 14–25 add health tips (`/api/health/`, seed with
+`python manage.py seed_health_tips`), doctor/admin APIs (`/api/doctor/`,
+`/api/admin/`; doctors only see patients who granted access under
+`/api/patients/access/`), the full React frontend, structured JSON logging,
+security tests, Docker, and deployment config. See
+[docs/testing.md](docs/testing.md) and [docs/deployment.md](docs/deployment.md).
+
 ## Repository layout
 
 - `backend/` — Django project and future domain apps
@@ -79,10 +86,19 @@ See [docs/architecture.md](docs/architecture.md) for the planned structure.
 ```powershell
 cd backend
 .\venv\Scripts\Activate.ps1
+pip install -r requirements-dev.txt
+python manage.py migrate
+python manage.py seed_health_tips
 python manage.py runserver
 ```
 
 ```powershell
 cd frontend
+copy .env.example .env
+npm.cmd install
 npm.cmd run dev
 ```
+
+To create a doctor or admin, register normally, then promote the account:
+`python manage.py createsuperuser` (admin), then use the Admin → Users page to
+set other accounts to Doctor.

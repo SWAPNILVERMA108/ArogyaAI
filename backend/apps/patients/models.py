@@ -54,3 +54,28 @@ class PatientProfile(models.Model):
 
     def __str__(self):
         return f"Patient profile: {self.user.email}"
+
+
+class PatientAccessGrant(models.Model):
+    """A patient's explicit consent for one doctor to view their health summary."""
+
+    patient = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name="access_grants",
+    )
+    doctor = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name="patient_grants",
+    )
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ["-created_at"]
+        constraints = [
+            models.UniqueConstraint(fields=("patient", "doctor"), name="unique_patient_doctor_grant"),
+        ]
+
+    def __str__(self):
+        return f"{self.patient_id} -> {self.doctor_id}"

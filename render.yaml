@@ -1,0 +1,25 @@
+# Render blueprint for the backend. Set the "sync: false" values in the Render dashboard.
+services:
+  - type: web
+    name: arogyaai-api
+    runtime: docker
+    rootDir: backend
+    healthCheckPath: /api/docs/
+    envVars:
+      - key: DJANGO_SETTINGS_MODULE
+        value: config.settings.production
+      - key: SECRET_KEY
+        generateValue: true
+      - key: DATABASE_URL
+        fromDatabase: { name: arogyaai-db, property: connectionString }
+      - key: ALLOWED_HOSTS
+        sync: false          # e.g. arogyaai-api.onrender.com
+      - key: CORS_ALLOWED_ORIGINS
+        sync: false          # e.g. https://your-app.vercel.app
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: MAPS_USER_AGENT
+        sync: false
+databases:
+  - name: arogyaai-db
+    plan: free

@@ -1,3 +1,5 @@
+import logging
+
 from rest_framework import status
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.throttling import ScopedRateThrottle
@@ -9,6 +11,9 @@ from common.utils.responses import success_response
 
 from .serializers import LoginSerializer, ProfileUpdateSerializer, RefreshSerializer, RegisterSerializer, UserSerializer
 from .services import AccountService
+
+
+security_logger = logging.getLogger("apps.security")
 
 
 class RegisterView(APIView):
@@ -25,6 +30,7 @@ class RegisterView(APIView):
         serializer = RegisterSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         user = AccountService.register_user(serializer.validated_data)
+        security_logger.info("Account registered.", extra={"user_id": user.pk})
         return success_response(
             {"user": UserSerializer(user).data, "tokens": AccountService.issue_tokens(user)},
             "Account created successfully.",
@@ -46,6 +52,7 @@ class LoginView(APIView):
         serializer = LoginSerializer(data=request.data, context={"request": request})
         serializer.is_valid(raise_exception=True)
         user = serializer.validated_data["user"]
+        security_logger.info("Login succeeded.", extra={"user_id": user.pk})
         return success_response(
             {"user": UserSerializer(user).data, "tokens": AccountService.issue_tokens(user)},
             "Login successful.",
@@ -81,6 +88,7 @@ class LogoutView(APIView):
         serializer = RefreshSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         AccountService.revoke_refresh_token(serializer.validated_data["refresh"])
+        security_logger.info("Logout.", extra={"user_id": request.user.pk})
         return success_response(None, "Logged out successfully.", status.HTTP_205_RESET_CONTENT)
 
 

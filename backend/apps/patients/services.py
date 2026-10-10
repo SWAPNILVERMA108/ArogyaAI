@@ -20,3 +20,23 @@ class PatientProfileService:
             setattr(profile, field, value)
         profile.save(update_fields=[*validated_data.keys(), "updated_at"])
         return profile
+
+
+class PatientAccessService:
+    @staticmethod
+    def grant(patient, doctor_email):
+        from django.contrib.auth import get_user_model
+        from rest_framework.exceptions import NotFound
+
+        from .models import PatientAccessGrant
+
+        User = get_user_model()
+        doctor = User.objects.filter(
+            email=doctor_email.casefold(), role=User.Role.DOCTOR, is_active=True
+        ).first()
+        if doctor is None:
+            raise NotFound("No active doctor account was found with that email.")
+        grant, created = PatientAccessGrant.objects.get_or_create(patient=patient, doctor=doctor)
+        if not created:
+            raise Conflict("This doctor already has access.")
+        return grant

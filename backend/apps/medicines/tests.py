@@ -138,3 +138,15 @@ class MedicineAPITests(APITestCase):
         self.client.force_authenticate(user=None)
         response = self.client.get(reverse("medicines:list-create"))
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+
+
+class MedicineRemindersInListTests(APITestCase):
+    def test_medicine_payload_includes_its_reminders(self):
+        user = User.objects.create_user(email="rem@example.com", password="StrongPass123!", name="Rem")
+        medicine = Medicine.objects.create(user=user, name="Iron")
+        MedicineReminder.objects.create(medicine=medicine, reminder_time="08:00", days_of_week=["MON"])
+        self.client.force_authenticate(user)
+        response = self.client.get("/api/medicines/")
+        reminders = response.data["data"][0]["reminders"]
+        self.assertEqual(len(reminders), 1)
+        self.assertEqual(reminders[0]["days_of_week"], ["MON"])

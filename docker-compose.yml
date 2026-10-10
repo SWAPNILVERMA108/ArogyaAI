@@ -1,0 +1,48 @@
+# Development stack: docker compose up --build
+# Secrets come from backend/.env (copy backend/.env.example); none are stored here.
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: arogyaai
+      POSTGRES_USER: arogyaai
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-dev-only-change-me}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U arogyaai -d arogyaai"]
+      interval: 5s
+      retries: 10
+
+  backend:
+    build: ./backend
+    env_file: ./backend/.env
+    environment:
+      DJANGO_SETTINGS_MODULE: config.settings.development
+      DATABASE_URL: postgres://arogyaai:${POSTGRES_PASSWORD:-dev-only-change-me}@postgres:5432/arogyaai
+      ALLOWED_HOSTS: localhost,127.0.0.1,backend
+    depends_on:
+      postgres:
+        condition: service_healthy
+    ports:
+      - "8000:8000"
+    volumes:
+      - media:/app/media
+      - ragindex:/app/data/faiss
+      - ./backend/data/medical:/app/data/medical:ro
+
+  frontend:
+    build: ./frontend
+    environment:
+      VITE_API_BASE_URL: http://localhost:8000/api
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./frontend/src:/app/src
+    depends_on:
+      - backend
+
+volumes:
+  pgdata:
+  media:
+  ragindex:

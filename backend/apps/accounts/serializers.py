@@ -65,3 +65,15 @@ class ProfileUpdateSerializer(serializers.Serializer):
         if User.objects.filter(email=email).exclude(pk=user.pk).exists():
             raise serializers.ValidationError("An account with this email already exists.")
         return email
+
+
+class AdminUserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ("id", "name", "email", "phone", "role", "is_active", "created_at")
+        read_only_fields = fields
+
+
+class AdminUserUpdateSerializer(serializers.Serializer):
+    role = serializers.ChoiceField(choices=User.Role.choices, required=False)
+    is_active = serializers.BooleanField(required=False)

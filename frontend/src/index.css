@@ -1,10 +1,14 @@
-:root {
-  background: #f6fbf8;
-  color: #163329;
-  font-family: Inter, system-ui, sans-serif;
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Noto Sans", "Noto Sans Devanagari", system-ui, sans-serif;
+  --color-brand-50: #ecfdf5;
+  --color-brand-100: #d1fae5;
+  --color-brand-600: #059669;
+  --color-brand-700: #047857;
+  --color-brand-800: #065f46;
 }
 
-* { box-sizing: border-box; }
-body { margin: 0; }
-h1 { font-size: clamp(2.5rem, 9vw, 4.5rem); margin: 0.5rem 0; }
-p { margin: 0.25rem 0; }
+html { font-size: 18px; }
+body { @apply bg-slate-50 text-slate-900 antialiased; }
+:focus-visible { outline: 3px solid #f59e0b; outline-offset: 2px; }
