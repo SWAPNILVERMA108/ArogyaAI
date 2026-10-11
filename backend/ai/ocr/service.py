@@ -1,7 +1,12 @@
+import base64
+import json
+import logging
 import os
 import subprocess
 import time
 from io import BytesIO
+from urllib.error import HTTPError, URLError
+from urllib.request import Request, urlopen
 
 from pypdf import PdfReader
 
@@ -10,6 +15,13 @@ MAX_PDF_PAGES = 30
 MAX_PDF_PAGE_PIXELS = 20_000_000
 MAX_OCR_SECONDS = 120
 MAX_IMAGE_OCR_SECONDS = 30
+
+logger = logging.getLogger(__name__)
+OCR_PROMPT = (
+    "Transcribe all the text visible in this image exactly as written, line by line. "
+    "Do not explain, summarise, correct or interpret it, and do not add anything. "
+    "If a word is unreadable write [unclear]. If there is no text, reply with nothing."
+)
 
 
 class OCRError(Exception):
@@ -36,7 +48,8 @@ class OCRService:
         if report.file_type == "PDF":
             return cls.extract_pdf(content)
         if report.file_type in {"PNG", "JPG"}:
-            text = cls._run_tesseract(content, MAX_IMAGE_OCR_SECONDS)
+            mime = "image/png" if report.file_type == "PNG" else "image/jpeg"
+            text = cls._recognise(content, MAX_IMAGE_OCR_SECONDS, mime)
             if not text:
                 raise OCRDocumentError("No readable text was found in this report.")
             return text
@@ -113,12 +126,51 @@ class OCRService:
                     raise OCRDocumentError("A PDF page could not be rendered for OCR.") from exc
                 if pixmap.width * pixmap.height > MAX_PDF_PAGE_PIXELS:
                     raise OCRDocumentError("A PDF page exceeds the safe image size for OCR.")
-                page_texts[page_index] = cls._run_tesseract(
-                    pixmap.tobytes("png"), min(remaining, 60)
+                page_texts[page_index] = cls._recognise(
+                    pixmap.tobytes("png"), min(remaining, 60), "image/png"
                 )
         finally:
             document.close()
         return page_texts
+
+    @classmethod
+    def _recognise(cls, image_bytes, timeout_seconds, mime_type):
+        """OCR_PROVIDER=tesseract (default, runs on the server) or gemini (cloud vision)."""
+        provider = os.environ.get("OCR_PROVIDER", "tesseract").strip().lower()
+        if provider == "gemini":
+            return cls._run_gemini(image_bytes, timeout_seconds, mime_type)
+        return cls._run_tesseract(image_bytes, timeout_seconds)
+
+    @staticmethod
+    def _run_gemini(image_bytes, timeout_seconds, mime_type):
+        # Sends the image to Google, so the operator must opt in explicitly.
+        if os.environ.get("OCR_CLOUD_ENABLED", "").strip().lower() not in {"1", "true", "yes"}:
+            raise OCREngineUnavailable("Cloud OCR is disabled. Set OCR_CLOUD_ENABLED=True.")
+        api_key = os.environ.get("GEMINI_API_KEY", "").strip()
+        model = (os.environ.get("GEMINI_OCR_MODEL") or os.environ.get("GEMINI_MODEL") or "").strip()
+        if not api_key or not model:
+            raise OCREngineUnavailable("GEMINI_API_KEY and a Gemini model must be configured.")
+        payload = {
+            "contents": [{"parts": [
+                {"text": OCR_PROMPT},
+                {"inline_data": {"mime_type": mime_type, "data": base64.b64encode(image_bytes).decode("ascii")}},
+            ]}],
+            "generationConfig": {"temperature": 0, "maxOutputTokens": 4096},
+        }
+        request = Request(
+            f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent",
+            data=json.dumps(payload).encode("utf-8"),
+            headers={"Content-Type": "application/json", "x-goog-api-key": api_key},
+            method="POST",
+        )
+        try:
+            with urlopen(request, timeout=timeout_seconds) as response:
+                result = json.loads(response.read().decode("utf-8"))
+        except (HTTPError, URLError, TimeoutError, OSError, ValueError) as exc:
+            logger.warning("Cloud OCR request failed: %s %s", type(exc).__name__, getattr(exc, "code", ""))
+            raise OCREngineUnavailable("The cloud OCR service is unavailable.") from exc
+        parts = (((result.get("candidates") or [{}])[0].get("content") or {}).get("parts")) or []
+        return "".join(part.get("text", "") for part in parts).strip()
 
     @staticmethod
     def _run_tesseract(image_bytes, timeout_seconds):
